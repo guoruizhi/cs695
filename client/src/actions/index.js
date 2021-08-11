@@ -2,15 +2,15 @@ import axios from "axios";
 
 //    Actions to set employee to edit
 
-export const setEmployeeToEdit = obj => {
+export const setEmployeeToEdit = (obj) => {
   return {
     type: "SET_EMPLOYEE_TO_EDIT",
-    employee: obj
+    employee: obj,
   };
 };
 export const resetEmployeeToEdit = () => {
   return {
-    type: "RESET_EMPLOYEE_TO_EDIT"
+    type: "RESET_EMPLOYEE_TO_EDIT",
   };
 };
 
@@ -18,21 +18,21 @@ export const resetEmployeeToEdit = () => {
 
 const getAllEmployeesStart = () => {
   return {
-    type: "GET_ALL_EMPLOYEES_START"
+    type: "GET_ALL_EMPLOYEES_START",
   };
 };
 
-const getAllEmployeesSuccess = response => {
+const getAllEmployeesSuccess = (response) => {
   return {
     type: "GET_ALL_EMPLOYEES_SUCCESS",
-    data: response.data
+    data: response.data,
   };
 };
 
-const getAllEmployeesFail = error => {
+const getAllEmployeesFail = (error) => {
   return {
     type: "GET_ALL_EMPLOYEES_FAIL",
-    error
+    error,
   };
 };
 
@@ -41,10 +41,10 @@ export const getAllEmployees = () => {
     dispatch(getAllEmployeesStart());
     axios
       .get("/employees")
-      .then(response => {
+      .then((response) => {
         dispatch(getAllEmployeesSuccess(response));
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch(getAllEmployeesFail(err));
       });
   };
@@ -54,34 +54,34 @@ export const getAllEmployees = () => {
 
 const addEmployeeStart = () => {
   return {
-    type: "ADD_EMPLOYEE_START"
+    type: "ADD_EMPLOYEE_START",
   };
 };
 
-const addEmployeeSuccess = response => {
+const addEmployeeSuccess = (response) => {
   return {
     type: "ADD_EMPLOYEE_SUCCESS",
-    response
+    response,
   };
 };
 
-const addEmployeeFail = error => {
+const addEmployeeFail = (error) => {
   return {
     type: "ADD_EMPLOYEE_FAIL",
-    error
+    error,
   };
 };
 
-export const createNewEmployee = newEmployee => {
+export const createNewEmployee = (newEmployee) => {
   return (dispatch, store) => {
     dispatch(addEmployeeStart());
     axios
       .post("/employees", newEmployee)
-      .then(response => {
+      .then((response) => {
         dispatch(addEmployeeSuccess(response));
-        // dispatch(getAllEmployees());
+        dispatch(getAllEmployees());
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch(addEmployeeFail(err));
         console.log(err);
       });
@@ -92,34 +92,34 @@ export const createNewEmployee = newEmployee => {
 
 const editEmployeeStart = () => {
   return {
-    type: "EDIT_EMPLOYEE_START"
+    type: "EDIT_EMPLOYEE_START",
   };
 };
 
-const editEmployeeSuccess = response => {
+const editEmployeeSuccess = (response) => {
   return {
     type: "EDIT_EMPLOYEE_SUCCESS",
-    response
+    response,
   };
 };
 
-const editEmployeeFail = error => {
+const editEmployeeFail = (error) => {
   return {
     type: "EDIT_EMPLOYEE_FAIL",
-    error
+    error,
   };
 };
 
-export const updateEmployee = obj => {
+export const updateEmployee = (obj) => {
   return (dispatch, store) => {
     dispatch(editEmployeeStart());
     axios
       .put(`/employees/${obj._id}`, obj)
-      .then(response => {
+      .then((response) => {
         dispatch(editEmployeeSuccess(response));
         dispatch(getAllEmployees());
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch(editEmployeeFail(err));
         console.log(err);
       });
@@ -128,29 +128,29 @@ export const updateEmployee = obj => {
 
 //  Actions to delete employee
 
-const deleteEmployeeSuccess = response => {
+const deleteEmployeeSuccess = (response) => {
   return {
     type: "DELETE_EMPLOYEE_SUCCESS",
-    response
+    response,
   };
 };
 
-const deleteEmployeeFail = error => {
+const deleteEmployeeFail = (error) => {
   return {
     type: "DELETE_EMPLOYEE_FAIL",
-    error
+    error,
   };
 };
 
-export const deleteEmployee = id => {
+export const deleteEmployee = (id) => {
   return (dispatch, store) => {
     axios
       .delete("/employees/" + id)
-      .then(response => {
+      .then((response) => {
         dispatch(deleteEmployeeSuccess(response));
         dispatch(getAllEmployees());
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch(deleteEmployeeFail(err));
       });
   };
@@ -160,40 +160,40 @@ export const deleteEmployee = id => {
 
 const getOneEmployeeStart = () => {
   return {
-    type: "GET_ONE_EMPLOYEE_START"
+    type: "GET_ONE_EMPLOYEE_START",
   };
 };
 
-const getOneEmployeeSuccess = response => {
+const getOneEmployeeSuccess = (response) => {
   return {
     type: "GET_ONE_EMPLOYEE_SUCCESS",
-    response
+    response,
   };
 };
 
-const getOneEmployeeFail = error => {
+const getOneEmployeeFail = (error) => {
   return {
     type: "GET_ONE_EMPLOYEE_FAIL",
-    error
+    error,
   };
 };
 
 export const resetOneEmployee = () => {
   return {
-    type: "RESET_ONE_EMPLOYEE"
+    type: "RESET_ONE_EMPLOYEE",
   };
 };
 
-export const getOneEmployee = id => {
+export const getOneEmployee = (id) => {
   return (dispatch, store) => {
     dispatch(getOneEmployeeStart());
     axios
       .get(`/employees/${id}`)
-      .then(response => {
+      .then((response) => {
         dispatch(getOneEmployeeSuccess(response.data));
         dispatch(getAllEmployees());
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch(getOneEmployeeFail(err));
         console.log(err);
       });
@@ -202,15 +202,15 @@ export const getOneEmployee = id => {
 
 // Actions about search
 
-export const setAndUseSearch = text => {
+export const setAndUseSearch = (text) => {
   return {
     type: "SET_AND_USE_SEARCH",
-    text
+    text,
   };
 };
 
 export const resetSearch = () => {
   return {
-    type: "RESET_SEARCH"
+    type: "RESET_SEARCH",
   };
 };

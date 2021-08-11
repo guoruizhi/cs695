@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const genderOptions = [
   { key: "male", text: "Male", value: "Male" },
-  { key: "female", text: "Female", value: "Female" }
+  { key: "female", text: "Female", value: "Female" },
 ];
 
 class FormExampleForm extends Component {
@@ -20,7 +20,7 @@ class FormExampleForm extends Component {
     this.state = this.props.employees.employee;
   }
 
-  changeHandler = event => {
+  changeHandler = (event) => {
     const tName = event.target.name;
     const tValue = event.target.value;
     if (tName === "title") {
@@ -54,12 +54,12 @@ class FormExampleForm extends Component {
       formData.append("cell", this.state.cell);
       formData.append("email", this.state.email);
       formData.append("manager", JSON.stringify(this.state.manager));
-      formData.append("avatar", this.state.avatar, this.state.avatar.name);
+      // formData.append("avatar", this.state.avatar, this.state.avatar.name);
       this.props.updateEmployee(formData);
       this.props.resetEmployeeToEdit();
       this.props.history.push(`/employees`);
     } else {
-      err.forEach(el => {
+      err.forEach((el) => {
         alert(el);
       });
     }
@@ -68,7 +68,7 @@ class FormExampleForm extends Component {
   managerHandler = (e, { value }) => this.setState({ manager: value });
   genderHandler = (e, { value }) => this.setState({ gender: value });
 
-  fileChangeHandler = event => {
+  fileChangeHandler = (event) => {
     this.setState({ avatar: event.target.files[0] });
   };
 
@@ -87,15 +87,15 @@ class FormExampleForm extends Component {
       filterSet.push(el);
     }
     const managerOptions = data
-      .filter(el => !filterSet.includes(el._id))
-      .map(el => {
+      .filter((el) => !filterSet.includes(el._id))
+      .map((el) => {
         return {
           key: el._id,
           text: el.name,
           value: {
             id: el._id,
-            name: el.name
-          }
+            name: el.name,
+          },
         };
       });
     managerOptions.unshift({ key: "none", text: "None", value: "None" });
@@ -211,19 +211,19 @@ class FormExampleForm extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    employees: state.employees
+    employees: state.employees,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     // Action to get all the employees
     getAllEmployees: () => {
       dispatch(actions.getAllEmployees());
     },
-    updateEmployee: obj => {
+    updateEmployee: (obj) => {
       dispatch(actions.updateEmployee(obj));
     },
     resetEmployeeToEdit: () => {
@@ -231,7 +231,7 @@ const mapDispatchToProps = dispatch => {
     },
     resetScrollCount: () => {
       dispatch({ type: "RESET_SCROLL_COUNT" });
-    }
+    },
   };
 };
 
